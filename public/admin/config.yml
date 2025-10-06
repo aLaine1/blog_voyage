@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: aLaine1/blog_voyage
   branch: main
+  base_url: https://blog-voyage-amlaine.vercel.app
+  auth_endpoint: api/auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
@@ -21,7 +24,7 @@ collections:
         options: 
           - {label: "Japon 2025", value: "japon-2025"}
           - {label: "Italie 2024", value: "italie-2024"}
-          - {label: "Test", value: "test"}
+          - {label: "Articles de Test", value: "test"}
       - {label: "Lieu", name: "lieu", widget: "string", required: false}
       - {label: "Image principale", name: "heroImage", widget: "image", required: false}
       - {label: "Contenu", name: "body", widget: "markdown"}
