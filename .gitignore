@@ -23,6 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-public/assets/
-public/image/
+
 public/admin/.auth
