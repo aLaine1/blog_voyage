@@ -10,7 +10,7 @@ collections:
     label: "Articles de voyage"
     folder: "src/content/blog"
     create: true
-    slug: "{{day}}-{{month}}-{{year}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Titre", name: "title", widget: "string"}
       - {label: "Description", name: "description", widget: "text"}
@@ -20,7 +20,8 @@ collections:
         widget: "select"
         options: 
           - {label: "Japon 2025", value: "japon-2025"}
-	        - {label: "Catégorie Test", value: "test"}
+          - {label: "Italie 2024", value: "italie-2024"}
+          - {label: "Test", value: "test"}
       - {label: "Lieu", name: "lieu", widget: "string", required: false}
       - {label: "Image principale", name: "heroImage", widget: "image", required: false}
       - {label: "Contenu", name: "body", widget: "markdown"}
