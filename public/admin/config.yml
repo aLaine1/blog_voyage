@@ -20,7 +20,7 @@ collections:
         widget: "select"
         options: 
           - {label: "Japon 2025", value: "japon-2025"}
-	  - {label: "Catégorie Test", value: "test"}
+	        - {label: "Catégorie Test", value: "test"}
       - {label: "Lieu", name: "lieu", widget: "string", required: false}
       - {label: "Image principale", name: "heroImage", widget: "image", required: false}
       - {label: "Contenu", name: "body", widget: "markdown"}
