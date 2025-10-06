@@ -1,12 +1,8 @@
 ---
-title: 'Article test'
-description: 'Ceci n'est qu'un test, ne faites pas attention'
+title: 'Mon titre'
+description: 'Ma description'
 pubDate: 2025-10-06
 heroImage: '/placeholder.jpg'
 ---
 
-## Test avec Cloudinary
-
-Ceci est un test avec un photo uploadé sur Cloudinary
-
-![Temple de Tokyo](https://res.cloudinary.com/mostlyblogpics/image/upload/v1759739854/download_jfida8.jpg)
+Contenu de l'article...
