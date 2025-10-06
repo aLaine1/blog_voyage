@@ -1,9 +1,6 @@
 backend:
-  name: github
-  repo: aLaine1/blog_voyage
+  name: git-gateway
   branch: main
-  base_url: https://blog-voyage-amlaine.vercel.app
-  auth_endpoint: api/auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
