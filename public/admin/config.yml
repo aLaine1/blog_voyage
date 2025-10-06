@@ -1,21 +1,19 @@
 backend:
-  name: github
-  repo: aLaine1/blog_voyage
+  name: git-gateway
   branch: main
-  base_url: https://api.github.com
-  auth_type: implicit
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "blog"
-    label: "Articles"
+    label: "Articles de voyage"
     folder: "src/content/blog"
     create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Titre", name: "title", widget: "string"}
       - {label: "Description", name: "description", widget: "text"}
-      - {label: "Date", name: "pubDate", widget: "datetime"}
-      - {label: "Image", name: "heroImage", widget: "image", required: false}
+      - {label: "Date de publication", name: "pubDate", widget: "datetime"}
+      - {label: "Image principale", name: "heroImage", widget: "image", required: false}
       - {label: "Contenu", name: "body", widget: "markdown"}
