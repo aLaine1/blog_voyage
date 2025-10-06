@@ -1,20 +1,347 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
-type Props = CollectionEntry<'blog'>;
 
-const post = Astro.props;
-const { Content } = await render(post);
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const voyageNames = {
+  'japon-2025': 'Japon 2025',
+  'italie-2024': 'Italie 2024',
+  'test': 'Articles de Test',
+};
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{entry.data.title}</title>
+  <meta name="description" content={entry.data.description}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb 0%, #f7f3f0 100%);
+      min-height: 100vh;
+      color: #2c2416;
+      line-height: 1.7;
+    }
+    
+    .article-header {
+      background: linear-gradient(135deg, #d4a574 0%, #c89666 100%);
+      padding: 40px 20px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .article-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .back-link {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 0.95em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 25px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateX(-4px);
+    }
+    
+    .voyage-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+    
+    h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.8em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      line-height: 1.2;
+    }
+    
+    .article-meta {
+      font-size: 1em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      opacity: 0.95;
+    }
+    
+    .article-description {
+      font-size: 1.2em;
+      line-height: 1.6;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+    
+    .hero-image-container {
+      max-width: 900px;
+      margin: -60px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    .article-content {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 50px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .article-content h2 {
+      font-family: 'Merriweather', serif;
+      color: #5d4e37;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      font-weight: 700;
+      border-bottom: 3px solid #f0ebe6;
+      padding-bottom: 12px;
+    }
+    
+    .article-content h3 {
+      font-family: 'Merriweather', serif;
+      color: #5d4e37;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.4em;
+      font-weight: 600;
+    }
+    
+    .article-content h4 {
+      color: #5d4e37;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-size: 1.2em;
+    }
+    
+    .article-content p {
+      margin-bottom: 20px;
+      color: #2c2416;
+      font-size: 1.05em;
+      line-height: 1.8;
+    }
+    
+    .article-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 30px 0;
+      display: block;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .article-content a {
+      color: #c89666;
+      text-decoration: none;
+      border-bottom: 2px solid #f0ebe6;
+      transition: all 0.2s ease;
+    }
+    
+    .article-content a:hover {
+      border-bottom-color: #c89666;
+    }
+    
+    .article-content code {
+      background: #f7f3f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #8b5a3c;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .article-content pre {
+      background: #2c2416;
+      color: #f7f3f0;
+      padding: 25px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin: 30px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .article-content pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+    
+    .article-content blockquote {
+      border-left: 4px solid #d4a574;
+      padding: 20px 30px;
+      margin: 30px 0;
+      background: #faf8f6;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      color: #5d5446;
+    }
+    
+    .article-content ul,
+    .article-content ol {
+      margin: 20px 0 20px 25px;
+      padding-left: 20px;
+    }
+    
+    .article-content li {
+      margin-bottom: 12px;
+      color: #2c2416;
+      line-height: 1.7;
+    }
+    
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 30px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .article-content th,
+    .article-content td {
+      border: 1px solid #f0ebe6;
+      padding: 15px;
+      text-align: left;
+    }
+    
+    .article-content th {
+      background: #faf8f6;
+      font-weight: 600;
+      color: #5d4e37;
+    }
+    
+    .article-content tr:hover {
+      background: #fdfbfb;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+      
+      .hero-image {
+        height: 250px;
+      }
+      
+      .article-content {
+        padding: 30px 25px;
+        margin: 40px 20px;
+      }
+      
+      .article-content h2 {
+        font-size: 1.5em;
+      }
+      
+      .hero-image-container {
+        margin: -40px auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="article-header">
+    <div class="header-content">
+      {entry.data.voyage && (
+        <a href={`/voyage/${entry.data.voyage}`} class="back-link">
+          ← Retour à {voyageNames[entry.data.voyage] || entry.data.voyage}
+        </a>
+      )}
+      
+      {entry.data.voyage && (
+        <div class="voyage-badge">
+          {voyageNames[entry.data.voyage] || entry.data.voyage}
+        </div>
+      )}
+      
+      <h1>{entry.data.title}</h1>
+      
+      <div class="article-meta">
+        <span>🗓️ {entry.data.pubDate.toLocaleDateString('fr-FR', { 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        })}</span>
+        {entry.data.lieu && <span>📍 {entry.data.lieu}</span>}
+      </div>
+      
+      {entry.data.description && (
+        <p class="article-description">{entry.data.description}</p>
+      )}
+    </div>
+  </div>
+  
+  {entry.data.heroImage && (
+    <div class="hero-image-container">
+      <img src={entry.data.heroImage} alt={entry.data.title} class="hero-image" />
+    </div>
+  )}
+  
+  <article class="article-content">
+    <Content />
+  </article>
+</body>
+</html>

@@ -2,6 +2,7 @@
 title: 'Third post'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Jul 22 2022'
+voyage: 'japon-2025'
 heroImage: '../../assets/blog-placeholder-2.jpg'
 ---
 
