@@ -12,9 +12,8 @@
     "@astrojs/mdx": "^4.3.6",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.6.0",
-    "@cloudinary/react": "^1.14.3",
-    "@cloudinary/url-gen": "^1.22.0",
     "astro": "^5.14.1",
+    "netlify-cms-app": "^2.14.14",
     "sharp": "^0.34.3"
   }
 }
