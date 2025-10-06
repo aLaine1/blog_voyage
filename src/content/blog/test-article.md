@@ -1,7 +1,7 @@
 ---
 title: 'Mon titre'
 description: 'Ma description'
-pubDate: 2025-10-06
+pubDate: 'Jul 15 2022'
 heroImage: '/placeholder.jpg'
 ---
 
